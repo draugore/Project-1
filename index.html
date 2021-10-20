@@ -1,0 +1,178 @@
+<!doctype html>
+<HTML lang="en">
+
+<link rel="stylesheet" href="mystyle.css">
+
+    <head>
+		<title>Project 1</title>
+		<meta charset="utf-8">
+	</head>
+
+    <script>
+        
+        //function to add an element to the list by user input
+        function newItem()
+        {
+            var txt = document.getElementById("inputMain").value;
+
+            if(txt== null || txt == "" || txt.length < 3)
+            {
+                var input = document.getElementById("inputMain"); 
+                // Alert to let the user know the text is too short
+                alert("Please add a proper list items");
+                // Adding some features like red borders when text field is submitted empty
+                input.style.borderColor = "red";
+                input.select();
+                input.focus();
+            }
+            else{ //if the text line is not empty it goes to this line and adds a new item to the list
+            let ul = document.getElementById("myList");
+            let li = document.createElement("li");
+            // Adding checkboxes and appending them to new items
+            let checkbox = document.createElement("input");
+            let list = document.getElementById("myList").getElementsByTagName("li");
+
+            let lastIndex = list.length;
+            checkbox.type = "checkbox";
+            checkbox.id = "myCheckList"+lastIndex;
+            checkbox.onclick = function() {functionDone()};
+            li.appendChild(checkbox);
+            
+            
+            li.appendChild(document.createTextNode(txt));
+            ul.appendChild(li);
+            list[list.length - 1].id = "myCheck" + lastIndex;
+            createCloseButton(list.length - 1);
+            closeButtons(list.length -1);
+            document.getElementById("inputMain").value = "";
+            //counter to add items
+            listCounter++;
+            document.getElementById('count').innerHTML = listCounter;
+            //saving the list to Local Storage
+            saveList();
+        }
+
+    }
+
+    </script>
+
+    <body>
+        <!--list of items -->
+        <div id="div1" class="header">
+            <h2>To Do List</h2>
+            <input type="text"  id="inputMain">
+          
+        <br/>
+            <button id="buttonAdd"><span onclick="newItem()" class="addSmt">Add</span></button>
+          </div>
+          
+          <ul id="myList" class="toDoList" >
+            
+            <li id="myCheck0" onclick="functionDone()"><input type="checkbox" id="myCheckList0">
+            Go for a walk </li> 
+            <li id="myCheck1" onclick="functionDone()" ><input type="checkbox" id="myCheckList1">
+            Pay bills</li>
+            <li id="myCheck2" onclick="functionDone()"><input type="checkbox" id="myCheckList2">
+            Meet friends</li>
+            <li id="myCheck3" onclick="functionDone()"><input type="checkbox" id="myCheckList3" >
+            Do groceries  </li>
+            <li id="myCheck4" onclick="functionDone()"><input type="checkbox" id="myCheckList4">
+            Read a book</li>
+            <li id="myCheck5" onclick="functionDone()"><input type="checkbox" id="myCheckList5" >
+            Clean the house  </li>
+          </ul>
+    
+          <button id="number">Number of list items:</button><button id="count"></button>
+
+        <script>
+            function functionDone(){
+                let mylistTotal = document.getElementById("myList").getElementsByTagName("li");
+                for (let i = 0; i < mylistTotal.length; i++) {
+                    let checkbox = document.getElementById("myCheckList"+i);
+                    if(checkbox !=null && checkbox.checked == true){
+                        document.getElementById("myCheck"+i).style.textDecoration = "line-through";
+                    }
+                    else{
+
+                        document.getElementById("myCheck"+i).style.textDecoration= "None";
+                    }
+                }
+            }
+            
+            // Creating close button and adding it to the list.
+            var myListTotal = document.getElementById("myList").getElementsByTagName("li");
+            var listCounter = myListTotal.length;
+            document.getElementById('count').innerHTML = listCounter;
+            for (var i = 0; i < myListTotal.length; i++) 
+            {
+                createCloseButton(i);
+                closeButtons(i);
+            }
+            checkMarks();
+            saveList();
+
+            // Creating close buttons
+
+            function createCloseButton(listIndex)
+            {
+                var mylist = document.getElementsByTagName("li");
+                var span = document.createElement("SPAN");
+                var txt = document.createTextNode("\u00D7");
+                span.className = "close";
+                span.appendChild(txt);
+                mylist[listIndex].appendChild(span);
+            }
+
+            // Creating functionality to the close buttons.
+            function closeButtons(listIndex)
+            { 
+                var myListLocal = document.getElementById("myList").getElementsByTagName("li");
+                var close = document.getElementsByClassName("close");
+                close[listIndex].onclick = function() {
+                var div = this.parentElement;
+                div.style.display = "none";
+
+                //counter to subtract the list counter
+                listCounter--;
+                document.getElementById('count').innerHTML = listCounter;
+                
+                saveList();
+                }
+               
+            }
+
+            // Creating check marks
+            function checkMarks(){
+                var list = document.querySelector('#myList');
+                list.addEventListener('click', function(event) {
+                if (event.target.tagName === 'li') {
+                event.target.classList.toggle('checked');
+                }
+                }, false);
+            }
+
+            // Saving the list to Local Storage
+            function saveList(){
+                var toDos = [];
+                var toDoList = document.getElementById("myList").getElementsByTagName("li");
+
+                for(let i=0; i < toDoList.length; i++){
+                    let toDo = toDoList[i];
+                    let toDoInfo={
+                        "task": toDo.innerText,
+                        "checked": toDo.classList.contains("checked")
+                    };
+
+                    toDos.push(toDoInfo);
+                }
+
+                localStorage.setItem("toDos", JSON.stringify(toDos));
+            }
+            
+            saveList();
+
+          </script>
+
+    </body>
+
+</html>
