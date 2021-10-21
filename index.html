@@ -10,7 +10,7 @@
 
     <script>
         
-        //function to add an element to the list by user input
+        // Function to add an element to the list by user input
         function newItem()
         {
             var txt = document.getElementById("inputMain").value;
@@ -45,10 +45,10 @@
             createCloseButton(list.length - 1);
             closeButtons(list.length -1);
             document.getElementById("inputMain").value = "";
-            //counter to add items
+            // Counter to add items
             listCounter++;
             document.getElementById('count').innerHTML = listCounter;
-            //saving the list to Local Storage
+            // Saving the list to Local Storage
             saveList();
         }
 
@@ -57,7 +57,7 @@
     </script>
 
     <body>
-        <!--list of items -->
+        <!-- List of items -->
         <div id="div1" class="header">
             <h2>To Do List</h2>
             <input type="text"  id="inputMain">
@@ -85,6 +85,7 @@
           <button id="number">Number of list items:</button><button id="count"></button>
 
         <script>
+            // Function to check if the checkbox is checked or not and adding tex decoration
             function functionDone(){
                 let mylistTotal = document.getElementById("myList").getElementsByTagName("li");
                 for (let i = 0; i < mylistTotal.length; i++) {
@@ -108,11 +109,9 @@
                 createCloseButton(i);
                 closeButtons(i);
             }
-            checkMarks();
             saveList();
 
             // Creating close buttons
-
             function createCloseButton(listIndex)
             {
                 var mylist = document.getElementsByTagName("li");
@@ -132,23 +131,12 @@
                 var div = this.parentElement;
                 div.style.display = "none";
 
-                //counter to subtract the list counter
+                // Counter to subtract the list counter
                 listCounter--;
                 document.getElementById('count').innerHTML = listCounter;
                 
                 saveList();
                 }
-               
-            }
-
-            // Creating check marks
-            function checkMarks(){
-                var list = document.querySelector('#myList');
-                list.addEventListener('click', function(event) {
-                if (event.target.tagName === 'li') {
-                event.target.classList.toggle('checked');
-                }
-                }, false);
             }
 
             // Saving the list to Local Storage
