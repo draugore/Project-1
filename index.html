@@ -15,7 +15,7 @@
         {
             var txt = document.getElementById("inputMain").value;
 
-            if(txt== null || txt == "" || txt.length < 3)
+            if(txt== null || txt == "" || txt.length < 3 || txt.length > 30)
             {
                 var input = document.getElementById("inputMain"); 
                 // Alert to let the user know the text is too short
@@ -26,6 +26,8 @@
                 input.focus();
             }
             else{ //if the text line is not empty it goes to this line and adds a new item to the list
+            var acceptedInput = document.getElementById("inputMain");
+            acceptedInput.style.borderColor = "initial";
             let ul = document.getElementById("myList");
             let li = document.createElement("li");
             // Adding checkboxes and appending them to new items
@@ -48,6 +50,10 @@
             // Counter to add items
             listCounter++;
             document.getElementById('count').innerHTML = listCounter;
+            activeCounter++;
+            document.getElementById('activeCount').innerHTML = activeCounter;
+
+
             // Saving the list to Local Storage
             saveList();
         }
@@ -57,14 +63,25 @@
     </script>
 
     <body>
+        <form>
+        <select name="mySelect" id="mySelect" onchange="backgroundMenu()">
+			<option value="Lavenders">Lavenders         
+			<option value="Blue skies">Blue skies
+			<option value="Mountains">Mountains
+			
+		  </select>
+        </form>
+
+
         <!-- List of items -->
         <div id="div1" class="header">
             <h2>To Do List</h2>
-            <input type="text"  id="inputMain">
+            <form><input type="text"  id="inputMain"></form>
           
         <br/>
             <button id="buttonAdd"><span onclick="newItem()" class="addSmt">Add</span></button>
           </div>
+         
           
           <ul id="myList" class="toDoList" >
             
@@ -81,35 +98,50 @@
             <li id="myCheck5" onclick="functionDone()"><input type="checkbox" id="myCheckList5" >
             Clean the house  </li>
           </ul>
-    
-          <button id="number">Number of list items:</button><button id="count"></button>
+        </div>
 
+        <button id="number">Number of list items:</button><button id="count"></button>
+        <button id="active"> Active items:  </button><button id="activeCount"> </button>
+          
         <script>
-            // Function to check if the checkbox is checked or not and adding tex decoration
+            // Function to check if the task is done and adding text-decoration
+            // This function also counts the active items based on the check box status
             function functionDone(){
                 let mylistTotal = document.getElementById("myList").getElementsByTagName("li");
+                let Done = 0;
+                activeCounter = listCounter;
                 for (let i = 0; i < mylistTotal.length; i++) {
                     let checkbox = document.getElementById("myCheckList"+i);
-                    if(checkbox !=null && checkbox.checked == true){
+                    if(checkbox.checked == true){
                         document.getElementById("myCheck"+i).style.textDecoration = "line-through";
+                        Done++;
                     }
                     else{
 
                         document.getElementById("myCheck"+i).style.textDecoration= "None";
                     }
                 }
+                activeCounter = listCounter - Done;
+                document.getElementById('activeCount').innerHTML = activeCounter;
+
             }
             
             // Creating close button and adding it to the list.
             var myListTotal = document.getElementById("myList").getElementsByTagName("li");
             var listCounter = myListTotal.length;
+            var activeCounter = myListTotal.length;
             document.getElementById('count').innerHTML = listCounter;
+            document.getElementById('activeCount').innerHTML = activeCounter;
             for (var i = 0; i < myListTotal.length; i++) 
             {
                 createCloseButton(i);
                 closeButtons(i);
             }
+            // Check the initial status of the list (checked or not) and count the active items
+            functionDone();
             saveList();
+            // Check the background image
+            backgroundMenu();
 
             // Creating close buttons
             function createCloseButton(listIndex)
@@ -134,7 +166,9 @@
                 // Counter to subtract the list counter
                 listCounter--;
                 document.getElementById('count').innerHTML = listCounter;
-                
+                // Uncheck the removed item and count the active items
+                document.getElementById("myCheckList"+listIndex).checked = false;
+                functionDone();
                 saveList();
                 }
             }
@@ -159,7 +193,32 @@
             
             saveList();
 
+            // Adding background image which you can change from dropdown menu
+            function backgroundMenu()
+            {
+                chooseImage();
+			}
+				
+            function chooseImage()
+			{
+				var selected = document.getElementById("mySelect").value;
+				var imagePlace = document.getElementById("backgroundPlace");
+				if(selected == "Lavenders"){
+				    document.body.style.background = "url('https://www.lelongweekend.com/wp-content/uploads/2021/07/DSC04162-1-scaled.jpg') no-repeat center";
+				}
+				else if(selected == "Blue skies"){
+					document.body.style.background= "url('https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80') no-repeat center";
+				}
+				else if(selected == "Mountains"){
+					document.body.style.background= "url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80') no-repeat center";
+                }
+                document.body.style.backgroundSize= "2000px 1700px";
+                document.body.style.backgroundColor= "rgb(247, 175, 187)"
+            }
+
           </script>
+
+          
 
     </body>
 

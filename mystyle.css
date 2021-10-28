@@ -1,9 +1,10 @@
 
-
+/*Background colour for body in case the backgroud images won't work */
 body {
-    background-color: pink;
+    background-color: rgb(247, 175, 187);
 }
 
+/*Placement, font and color for H2-title and background */
 h2 {
     color: rgb(43, 8, 23);
     background-color: lightpink;
@@ -14,6 +15,7 @@ h2 {
     border-radius: 25px;
 }
 
+/*Add-buttons style properties and placement */
 #buttonAdd {
     color:rgb(215, 51, 73);
     border-color: rgb(206, 92, 109);
@@ -24,6 +26,13 @@ h2 {
     margin-top: 5px;
 }
 
+/*Hover-effect to Add-button */
+#buttonAdd:hover{
+    background:rgb(223, 144, 154);
+
+}
+
+/*Colour and placement for list, background colour */
 ul{
     list-style-type:none;
         background: #ff9999;
@@ -34,7 +43,7 @@ ul{
 
       }
     
-
+/*Colour and placement for list items */
 ul li{ 
     background: #ffe5e5;
     padding: 5px;
@@ -43,15 +52,17 @@ ul li{
     border-radius: 25px;
 
 }
-
+/*Hover-effect on list items */
 ul li:hover{
     background-color: rgb(244, 130, 141);
 }
 
+/*Background colour for user-input */
 input{
     background: rgb(244, 130, 141);
 }
 
+/*Position for close-buttons*/
 .close{
     
     right: 0;
@@ -59,25 +70,67 @@ input{
     position: absolute;
 }
 
+
+/*Colour and border-style for Number of list items-button */
 #number{
     color: palevioletred;
     background: pink;
     border-radius: 25px;
 }
 
+/*Colours and border-style for count-button */
 #count{
     color: palevioletred;
     background: pink;
     border-radius: 25px;
 }
 
+/*Hover-effect for count-button */
 #count:hover{
     background:rgb(244, 130, 141);
 }
 
+/*Hover-effect for Number of list items-button */
 #number:hover{
     background: rgb(244, 130, 141);
 }
+
+/*Colours and border-style for Active items-button */
+#active{
+    color: palevioletred;
+    background: pink;
+    border-radius: 25px;
+
+}
+
+/*Colours and border-style for active count-button */
+#activeCount{
+    color: palevioletred;
+    background: pink;
+    border-radius: 25px;
+}
+
+/*Hover-effect for active count-button */
+#activeCount:hover{
+    background: rgb(244, 130, 141);
+}
+
+/*Hover-effect for Active items-button */
+#active:hover{
+    background: rgb(244, 130, 141);
+}
+
+/*Colours, borders and placement for dropdown menu */
+#mySelect{
+    color: palevioletred;
+    background: pink;
+    border-radius: 25px;
+    margin-left: 25%;
+    position: relative;
+}
+
+
+
 
 
 
